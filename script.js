@@ -1,6 +1,3 @@
-/* ================= Mobile Detection ================= */
-const isMobile = window.innerWidth <= 768;
-
 /* ================= Header Scroll ================= */
 const header = document.getElementById('header');
 let ticking = false;
@@ -30,7 +27,8 @@ if (navToggle && navList) {
     });
 }
 
-/* ================= Active Nav Link ================= */
+/* ================= Active Nav Link (Throttled) ================= */
+let navTicking = false;
 function updateNavActive() {
     const scrollY = window.pageYOffset;
     const sections = document.querySelectorAll('section[id]');
@@ -49,7 +47,15 @@ function updateNavActive() {
         l.classList.toggle('active', l.getAttribute('href') === '#' + current)
     );
 }
-window.addEventListener('scroll', updateNavActive, { passive: true });
+window.addEventListener('scroll', () => {
+    if (!navTicking) {
+        requestAnimationFrame(() => {
+            updateNavActive();
+            navTicking = false;
+        });
+        navTicking = true;
+    }
+}, { passive: true });
 updateNavActive();
 
 /* ================= Smooth Scroll (fast) ================= */
@@ -64,56 +70,3 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         }
     });
 });
-
-/* ================= Scroll Reveal (lightweight) ================= */
-const revealEls = document.querySelectorAll('.about__card, .product__card, .feature__item');
-revealEls.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-});
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, i * 60);
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-revealEls.forEach(el => observer.observe(el));
-
-/* ================= Parallax Glow (Desktop Only) ================= */
-if (!isMobile) {
-    const g1 = document.querySelector('.hero__glow--1');
-    const g2 = document.querySelector('.hero__glow--2');
-    let glowTicking = false;
-
-    if (g1 && g2) {
-        document.addEventListener('mousemove', (e) => {
-            if (!glowTicking) {
-                requestAnimationFrame(() => {
-                    const x = e.clientX / window.innerWidth;
-                    const y = e.clientY / window.innerHeight;
-                    g1.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
-                    g2.style.transform = `translate(${-x * 15}px, ${-y * 15}px)`;
-                    glowTicking = false;
-                });
-                glowTicking = true;
-            }
-        }, { passive: true });
-    }
-}
-
-/* ================= Service Worker Registration ================= */
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' })
-            .then((reg) => console.log('SW registered:', reg.scope))
-            .catch(() => { /* Non-critical, fail silently */ });
-    });
-}

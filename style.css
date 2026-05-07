@@ -41,6 +41,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
 
 .container{width:100%;max-width:var(--mw);margin:0 auto;padding:0 1.25rem}
 .section{padding:5rem 0;content-visibility:auto;contain-intrinsic-size:500px}
+.icon{flex-shrink:0;vertical-align:middle}
 .text-gradient{background:var(--gr);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* ================= Section Header ================= */
@@ -67,12 +68,12 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     transition:background var(--e),box-shadow var(--e);padding:0.4rem 0
 }
 .header.scrolled{
-    background:rgba(15,15,26,0.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    background:rgba(15,15,26,0.97);
     border-bottom:1px solid var(--bd);box-shadow:0 4px 20px rgba(0,0,0,0.3)
 }
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
 .nav__logo{display:flex;align-items:center;gap:0.45rem;font-size:1.4rem;font-weight:800;color:#fff}
-.nav__logo i{color:var(--pl);font-size:1.3rem}
+.nav__logo .icon{color:var(--pl)}
 .nav__list{display:flex;align-items:center;gap:1.8rem}
 .nav__link{color:var(--t2);font-weight:500;font-size:0.9rem;transition:color var(--e);position:relative}
 .nav__link.active,.nav__link:active{color:#fff}
@@ -81,7 +82,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     background:var(--gr);transition:width 0.3s;border-radius:2px
 }
 .nav__link.active::after{width:100%}
-.nav__toggle{display:none;color:#fff;font-size:1.4rem}
+.nav__toggle{display:none;color:#fff}
+.nav__toggle .icon{display:block}
 
 /* ================= Hero ================= */
 .hero{
@@ -89,9 +91,11 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     overflow:hidden;padding-top:64px
 }
 .hero__bg{position:absolute;inset:0;pointer-events:none}
-.hero__glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.25}
-.hero__glow--1{width:500px;height:500px;background:var(--p);top:-150px;right:-150px}
-.hero__glow--2{width:400px;height:400px;background:var(--s);bottom:-150px;left:-100px}
+.hero__glow{position:absolute;border-radius:50%;opacity:0.2}
+.hero__glow--1{width:500px;height:500px;background:var(--p);top:-150px;right:-150px;animation:heroGlow1 8s ease-in-out infinite alternate}
+.hero__glow--2{width:400px;height:400px;background:var(--s);bottom:-150px;left:-100px;animation:heroGlow2 10s ease-in-out infinite alternate}
+@keyframes heroGlow1{0%{transform:translate(0,0)}100%{transform:translate(30px,30px)}}
+@keyframes heroGlow2{0%{transform:translate(0,0)}100%{transform:translate(-20px,-20px)}}
 .hero__container{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
 .hero__title{font-size:2.8rem;font-weight:900;line-height:1.15;margin-bottom:1.2rem}
 .hero__description{color:var(--t2);font-size:1.05rem;margin-bottom:1.8rem;line-height:1.85;max-width:520px}
@@ -107,9 +111,9 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     transition:transform var(--e),border-color var(--e)
 }
 .hero__contact-card:active{transform:translateX(-3px);border-color:var(--p)}
-.hero__contact-card i{
+.hero__contact-card .icon{
     width:44px;height:44px;background:var(--gr);border-radius:12px;
-    display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0
+    display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;padding:10px
 }
 .hero__contact-card strong{display:block;font-size:0.8rem;color:var(--t3);font-weight:500}
 .hero__contact-card span{font-size:0.95rem;font-weight:600;direction:ltr;display:block}
@@ -177,8 +181,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     border-radius:var(--rl);padding:1.8rem 1.3rem;text-align:center;transition:transform var(--e),border-color var(--e)
 }
 .feature__item:active{transform:translateY(-3px);border-color:var(--p)}
-.feature__item i{
-    font-size:1.8rem;margin-bottom:0.8rem;
+.feature__item .icon{
+    margin-bottom:0.8rem;
     background:var(--gr);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
 }
 .feature__item h4{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
@@ -199,7 +203,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
 .footer__contact h4{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#fff}
 .footer__contact ul{display:flex;flex-direction:column;gap:0.7rem}
 .footer__contact li{color:var(--t2);font-size:0.85rem;display:flex;align-items:center;gap:0.5rem;direction:ltr}
-.footer__contact li i{color:var(--pl);width:18px;text-align:center}
+.footer__contact li .icon{color:var(--pl);flex-shrink:0}
+.footer__contact li a{display:flex;align-items:center;gap:0.5rem}
 .footer__bottom{
     display:flex;justify-content:center;align-items:center;
     padding-top:1.2rem;border-top:1px solid var(--bdl);font-size:0.8rem;color:var(--t3)
@@ -210,24 +215,24 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     position:fixed;bottom:1.5rem;right:1.5rem;
     width:52px;height:52px;background:#25D366;color:#fff;
     border-radius:50%;display:flex;align-items:center;justify-content:center;
-    font-size:1.5rem;box-shadow:0 4px 18px rgba(37,211,102,0.35);
-    z-index:999;transition:transform var(--e);animation:pulse-wa 2s infinite;touch-action:manipulation
+    box-shadow:0 4px 18px rgba(37,211,102,0.35);
+    z-index:999;transition:transform var(--e);touch-action:manipulation
 }
+.floating-whatsapp .icon{width:24px;height:24px}
 .floating-whatsapp:active{transform:scale(0.92)}
-@keyframes pulse-wa{0%,100%{box-shadow:0 4px 18px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 30px rgba(37,211,102,0.6)}}
 
 /* ================= Mobile Bottom Navigation ================= */
 .mobile-nav{
     display:none;position:fixed;bottom:0;left:0;width:100%;
-    background:rgba(15,15,26,0.96);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
-    border-top:1px solid var(--bd);z-index:1000;padding:0.4rem 0 0.15rem;will-change:transform
+    background:rgba(15,15,26,0.97);
+    border-top:1px solid var(--bd);z-index:1000;padding:0.4rem 0 0.15rem
 }
 .mobile-nav__list{display:flex;justify-content:space-around;align-items:center}
 .mobile-nav__item a{
     display:flex;flex-direction:column;align-items:center;gap:0.2rem;
     color:var(--t3);font-size:0.65rem;font-weight:600;transition:color var(--e);touch-action:manipulation
 }
-.mobile-nav__item a i{font-size:1.15rem}
+.mobile-nav__item a .icon{display:block;margin:0 auto 2px}
 .mobile-nav__item a.active{color:var(--pl)}
 
 /* ================= RESPONSIVE ================= */
@@ -264,7 +269,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     .hero__btns .btn{justify-content:center}
     .hero__contact-cards{flex-direction:column;gap:0.6rem}
     .hero__contact-card{justify-content:flex-start;padding:0.9rem 1.1rem;min-width:0;flex:1}
-    .hero__contact-card i{width:40px;height:40px;font-size:1rem}
+    .hero__contact-card .icon{width:40px;height:40px;padding:9px}
     .hero__contact-card strong{font-size:0.75rem}
     .hero__contact-card span{font-size:0.85rem}
     .hero__wave svg{height:50px}
@@ -292,7 +297,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     /* Features - ALWAYS 2 per row */
     .features__grid{grid-template-columns:1fr 1fr;gap:0.7rem}
     .feature__item{padding:1.2rem 0.8rem}
-    .feature__item i{font-size:1.4rem;margin-bottom:0.5rem}
+    .feature__item .icon{width:20px;height:20px;margin-bottom:0.5rem}
     .feature__item h4{font-size:0.9rem;margin-bottom:0.3rem}
     .feature__item p{font-size:0.75rem;line-height:1.5}
 
@@ -302,7 +307,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     .footer__brand{text-align:center}
     .footer__social{justify-content:center}
 
-    .floating-whatsapp{bottom:4.5rem;right:1rem;width:46px;height:46px;font-size:1.3rem}
+    .floating-whatsapp{bottom:4.5rem;right:1rem;width:46px;height:46px}
+    .floating-whatsapp .icon{width:22px;height:22px}
 }
 
 /* Small Mobile: up to 380px */
@@ -310,11 +316,11 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;touch-acti
     .hero__title{font-size:1.5rem}
     .section__title{font-size:1.4rem}
     .hero__contact-card{padding:0.75rem 0.9rem}
-    .hero__contact-card i{width:36px;height:36px;font-size:0.9rem}
+    .hero__contact-card .icon{width:36px;height:36px;padding:8px}
     .hero__contact-card span{font-size:0.8rem}
     .features__grid{gap:0.5rem}
     .feature__item{padding:1rem 0.6rem}
-    .feature__item i{font-size:1.2rem}
+    .feature__item .icon{width:18px;height:18px}
     .feature__item h4{font-size:0.82rem}
     .feature__item p{font-size:0.7rem}
     .product__card-icon{width:38px;height:38px;font-size:1rem}
